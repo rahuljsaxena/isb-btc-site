@@ -1,0 +1,421 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ISB Business Technology Club</title>
+  <meta name="description" content="Join ISB Business Technology Club. Build, automate, ship." />
+  <style>
+    :root{
+      --bg:#070A12;
+      --panel:rgba(255,255,255,0.06);
+      --text:rgba(255,255,255,0.92);
+      --muted:rgba(255,255,255,0.72);
+      --faint:rgba(255,255,255,0.55);
+      --line:rgba(255,255,255,0.12);
+      --glow:rgba(120,180,255,0.25);
+      --glow2:rgba(190,120,255,0.18);
+      --radius:18px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      color:var(--text);
+      background:
+        radial-gradient(1000px 600px at 20% 15%, var(--glow), transparent 60%),
+        radial-gradient(900px 600px at 80% 10%, var(--glow2), transparent 55%),
+        radial-gradient(900px 600px at 50% 90%, rgba(80,255,210,0.10), transparent 60%),
+        linear-gradient(180deg, #05060B 0%, #070A12 55%, #060913 100%);
+      min-height:100vh;
+      overflow-x:hidden;
+    }
+    .wrap{max-width:1100px;margin:0 auto;padding:28px 18px 60px}
+    .topbar{
+      display:flex;gap:14px;align-items:center;justify-content:space-between;
+      padding:14px 16px;border:1px solid var(--line);border-radius:var(--radius);
+      background:linear-gradient(180deg, var(--panel), transparent);
+      backdrop-filter: blur(10px);
+      position:sticky;top:14px;z-index:50;
+    }
+    @media (max-width: 920px){ .topbar{position:relative;top:auto} }
+    .brand{display:flex;align-items:center;gap:12px}
+    .logo{
+      width:38px;height:38px;border-radius:12px;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.35), transparent 45%),
+                  linear-gradient(135deg, rgba(120,180,255,0.9), rgba(190,120,255,0.85));
+      box-shadow: 0 0 0 1px rgba(255,255,255,0.18), 0 10px 30px rgba(120,180,255,0.10);
+    }
+    .brand h1{font-size:14px;margin:0;letter-spacing:0.4px}
+    .brand p{margin:2px 0 0;font-size:12px;color:var(--muted)}
+    .nav{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+    .tab{
+      border:1px solid var(--line);
+      background:rgba(255,255,255,0.03);
+      color:var(--muted);
+      padding:10px 12px;border-radius:14px;
+      cursor:pointer;font-size:13px;
+      transition: all 180ms ease;
+      user-select:none;
+    }
+    .tab:hover{background:rgba(255,255,255,0.06);color:var(--text)}
+    .tab.active{
+      background:rgba(255,255,255,0.10);
+      color:var(--text);
+      box-shadow: 0 0 0 1px rgba(255,255,255,0.10), 0 18px 50px rgba(120,180,255,0.10);
+    }
+    .hero{margin-top:18px;display:grid;grid-template-columns: 1.05fr 0.95fr;gap:14px}
+    @media (max-width: 920px){ .hero{grid-template-columns:1fr;} }
+    .card{
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      background:linear-gradient(180deg, var(--panel), rgba(255,255,255,0.02));
+      backdrop-filter: blur(10px);
+      overflow:hidden;
+    }
+    .pad{padding:18px}
+    .headline{font-size:30px;line-height:1.08;margin:0 0 10px;letter-spacing:-0.6px}
+    .sub{color:var(--muted);margin:0 0 14px;font-size:14px;line-height:1.5}
+    .grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    @media (max-width: 520px){ .grid2{grid-template-columns:1fr} }
+    input, select{
+      width:100%;padding:12px 12px;border-radius:14px;
+      border:1px solid var(--line);
+      background:rgba(0,0,0,0.25);
+      color:var(--text);
+      outline:none;
+    }
+    input::placeholder{color:rgba(255,255,255,0.35)}
+    .btnrow{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+    .btn{
+      border:1px solid rgba(255,255,255,0.16);
+      background:linear-gradient(135deg, rgba(120,180,255,0.20), rgba(190,120,255,0.14));
+      padding:12px 14px;border-radius:14px;
+      color:var(--text);text-decoration:none;font-size:13px;
+      display:inline-flex;align-items:center;gap:8px;
+      cursor:pointer;
+      transition: transform 140ms ease, background 180ms ease;
+    }
+    .btn:hover{transform: translateY(-1px);background:linear-gradient(135deg, rgba(120,180,255,0.26), rgba(190,120,255,0.18));}
+    .btn.secondary{background:rgba(255,255,255,0.04);color:var(--muted)}
+    .btn.secondary:hover{color:var(--text);background:rgba(255,255,255,0.07)}
+    .small{font-size:12px;color:var(--faint);line-height:1.45;margin-top:10px}
+
+    .videoWrap{position:relative;border-top:1px solid var(--line);background:rgba(0,0,0,0.25);min-height:360px;}
+    .videoOverlay{
+      position:absolute;left:14px;right:14px;top:14px;
+      padding:12px 12px;border-radius:16px;
+      border:1px solid rgba(255,255,255,0.14);
+      background:rgba(0,0,0,0.35);
+      backdrop-filter: blur(10px);
+      display:flex;align-items:flex-start;justify-content:space-between;gap:12px;
+      z-index:5;
+    }
+    .videoOverlay .left h3{margin:0;font-size:14px}
+    .videoOverlay .left p{margin:4px 0 0;color:var(--muted);font-size:12px}
+    .badge{
+      padding:8px 10px;border-radius:999px;
+      border:1px solid rgba(255,255,255,0.14);
+      background:rgba(255,255,255,0.05);
+      color:var(--muted);
+      font-size:12px;white-space:nowrap;
+    }
+    iframe{width:100%;height:420px;border:0}
+    .section{display:none;margin-top:14px}
+    .section.active{display:block}
+    .cards3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+    @media (max-width: 920px){ .cards3{grid-template-columns:1fr} }
+    .mini h4{margin:0 0 8px}
+    .mini p{margin:0;color:var(--muted);font-size:13px;line-height:1.5}
+    .footer{margin-top:18px;color:var(--faint);font-size:12px}
+    .ok{color:rgba(130,255,190,0.9)}
+    .warn{color:rgba(255,210,130,0.95)}
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <div>
+          <h1 id="clubName">ISB Business Technology Club</h1>
+          <p id="clubMeta">Build, automate, ship, repeat</p>
+        </div>
+      </div>
+      <div class="nav" role="tablist" aria-label="Navigation">
+        <div class="tab active" data-tab="join">Join</div>
+        <div class="tab" data-tab="newsletter">Newsletter</div>
+        <div class="tab" data-tab="activities">Activities</div>
+        <div class="tab" data-tab="about">About</div>
+      </div>
+    </div>
+
+    <div class="hero">
+      <div class="card">
+        <div class="pad">
+          <h2 class="headline">A futuristic club for people who like building smart stuff.</h2>
+          <p class="sub">
+            Join the WhatsApp group, send a 1 line intro, and get your first mini build challenge this week.
+          </p>
+
+          <div class="grid2">
+            <div>
+              <label class="small">Your name</label>
+              <input id="nameInput" placeholder="Type your name" />
+            </div>
+            <div>
+              <label class="small">What do you want from the club?</label>
+              <select id="intentInput">
+                <option value="AI builds">AI builds</option>
+                <option value="Automation">Automation</option>
+                <option value="Product and GTM">Product and GTM</option>
+                <option value="Analytics">Analytics</option>
+                <option value="No-code experiments">No-code experiments</option>
+                <option value="Just exploring">Just exploring</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="btnrow">
+            <a class="btn" id="joinBtn" href="#" target="_blank" rel="noopener">Join WhatsApp group</a>
+            <a class="btn secondary" id="chatBtn" href="#" target="_blank" rel="noopener">Message Rahul</a>
+            <button class="btn secondary" id="copyIntroBtn" type="button">Copy intro text</button>
+          </div>
+
+          <div class="small" id="privacyNote">
+            Your name stays in your browser, nothing is stored on this site.
+          </div>
+        </div>
+
+        <div class="videoWrap">
+          <div class="videoOverlay">
+            <div class="left">
+              <h3 id="overlayTitle">Welcome</h3>
+              <p id="overlaySub">Click Join, then paste your intro.</p>
+            </div>
+            <div class="badge" id="batchBadge">PGPpro Delhi Co’26</div>
+          </div>
+          <iframe id="heygenFrame" title="Welcome video" src="" allow="autoplay; fullscreen; picture-in-picture"></iframe>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="pad">
+          <h3 style="margin:0 0 8px;">Newsletter signup</h3>
+          <p class="sub" style="margin:0 0 14px;">
+            Add your ISB email and personal email, we will send a weekly curated digest.
+          </p>
+
+          <div class="grid2">
+            <div>
+              <label class="small">ISB email</label>
+              <input id="isbEmail" placeholder="name@isb.edu" />
+            </div>
+            <div>
+              <label class="small">Personal email</label>
+              <input id="personalEmail" placeholder="name@gmail.com" />
+            </div>
+          </div>
+
+          <div class="btnrow">
+            <button class="btn" id="newsletterSignupBtn" type="button">Subscribe</button>
+            <button class="btn secondary" id="copyNewsletterPromptBtn" type="button">Copy weekly prompt</button>
+          </div>
+
+          <div class="small" id="newsletterStatus">
+            We will only use these emails for BTC updates.
+          </div>
+
+          <div class="footer">
+            After you deploy the Apps Script endpoint, the Subscribe button will become live.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section active" id="section-join"></div>
+
+    <div class="section" id="section-newsletter">
+      <div class="card">
+        <div class="pad">
+          <h2 style="margin:0 0 8px;">Weekly BTC Dispatch</h2>
+          <p class="sub" style="margin:0 0 14px;">
+            1 cool build, 1 big idea, 1 prompt template, 1 campus use case, 1 member spotlight.
+          </p>
+          <div class="small">
+            Coming soon: issue archive and leaderboard.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section" id="section-activities">
+      <div class="card">
+        <div class="pad">
+          <h2 style="margin:0 0 8px;">Activities</h2>
+          <p class="sub" style="margin:0 0 14px;">
+            This tab is ready for the next build: toolbox, calendar, and mini build nights.
+          </p>
+          <div class="cards3">
+            <div class="card mini"><div class="pad"><h4>Toolbox</h4><p>Curated tools with campus use cases.</p></div></div>
+            <div class="card mini"><div class="pad"><h4>Build Nights</h4><p>90 minutes, teams ship demos.</p></div></div>
+            <div class="card mini"><div class="pad"><h4>Leaderboard</h4><p>Points for builds and community help.</p></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section" id="section-about">
+      <div class="card">
+        <div class="pad">
+          <h2 style="margin:0 0 8px;">About</h2>
+          <p class="sub" style="margin:0 0 14px;">
+            Practical business tech, fast builds, and a community that ships.
+          </p>
+          <div class="small">
+            For collaboration, tap “Message Rahul” on the Join tab.
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    const CONFIG = {
+      clubName: "ISB Business Technology Club",
+      batchLabel: "PGPpro Delhi Co’26",
+      tagline: "Build, automate, ship, repeat",
+      whatsappGroupInviteLink: "https://chat.whatsapp.com/LG57im31bS6Ixz2CHxbpF7",
+      whatsappAdminNumberIntlDigitsOnly: "918550978969",
+      heygenEmbedUrl: "<iframe width="560" height="315" src="https://app.heygen.com/embedded-player/1c044ae1784d43dd8544423ae8932376" title="HeyGen video player" frameborder="0" allow="encrypted-media; fullscreen;" allowfullscreen></iframe>",
+      newsletterGroupEmail: "btc@rahuljsaxena.com",
+      appsScriptWebAppUrl: "https://script.google.com/macros/s/AKfycbwI5SpsiOBivrUIlE0OPeWosQNg1vQqrHiwDV0mGlU9RTZvw8kxucW44Rl1LbfYOpbDGQ/exec"
+    };
+
+    const $ = (id) => document.getElementById(id);
+    const encode = (s) => encodeURIComponent(s);
+
+    function buildIntroText(name, intent){
+      const safeName = (name || "I’m").trim();
+      const safeIntent = (intent || "exploring").trim();
+      return `Hi! ${safeName} wants to join ${CONFIG.clubName}. My focus: ${safeIntent}. One thing I want to build this term: _____.`;
+    }
+
+    function setLinks(){
+      $("joinBtn").href = CONFIG.whatsappGroupInviteLink;
+
+      const name = $("nameInput").value.trim();
+      const intent = $("intentInput").value;
+      const msg = buildIntroText(name, intent);
+
+      $("chatBtn").href = `https://wa.me/${CONFIG.whatsappAdminNumberIntlDigitsOnly}?text=${encode(msg)}`;
+    }
+
+    function updateOverlay(){
+      const name = $("nameInput").value.trim();
+      const intent = $("intentInput").value;
+
+      $("overlayTitle").textContent = name ? `Welcome, ${name}` : "Welcome";
+      $("overlaySub").textContent = `Goal: ${intent}. Click Join, then paste your intro.`;
+      $("batchBadge").textContent = CONFIG.batchLabel || "ISB";
+    }
+
+    function setHeader(){
+      $("clubName").textContent = CONFIG.clubName;
+      $("clubMeta").textContent = CONFIG.tagline;
+      $("batchBadge").textContent = CONFIG.batchLabel || "ISB";
+      $("heygenFrame").src = CONFIG.heygenEmbedUrl;
+    }
+
+    document.querySelectorAll(".tab").forEach(t => {
+      t.addEventListener("click", () => {
+        document.querySelectorAll(".tab").forEach(x => x.classList.remove("active"));
+        t.classList.add("active");
+
+        const tab = t.getAttribute("data-tab");
+        document.querySelectorAll(".section").forEach(s => s.classList.remove("active"));
+        $("section-" + tab).classList.add("active");
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+    });
+
+    $("copyIntroBtn").addEventListener("click", async () => {
+      const txt = buildIntroText($("nameInput").value.trim(), $("intentInput").value);
+      await navigator.clipboard.writeText(txt);
+      $("copyIntroBtn").textContent = "Copied";
+      setTimeout(() => $("copyIntroBtn").textContent = "Copy intro text", 1200);
+    });
+
+    const WEEKLY_PROMPT = `
+You are the editor for ISB Business Technology Club’s weekly newsletter.
+Audience: busy MBA students. Tone: classy, futuristic, crisp. No fluff.
+Input I will provide: a list of source links and a few bullet notes from me.
+
+Rules:
+- Do not copy long text from sources.
+- Summarize in your own words, add my commentary, and include links back to sources.
+- Output must be skimmable and actionable.
+
+Create:
+1) Title + 1 line hook
+2) “This week’s drops” with 5 items, each with: What it is, Why it matters for business, Try it in 10 minutes
+3) “Prompt of the week” with: prompt, when to use, variations
+4) “Campus use case” in 5 lines
+5) “Member spotlight” placeholder with nomination criteria
+6) Close with a single CTA to join WhatsApp and subscribe
+
+Now write Issue #__ for week ending __ using the sources below:
+[SOURCES]
+`;
+
+    $("copyNewsletterPromptBtn").addEventListener("click", async () => {
+      await navigator.clipboard.writeText(WEEKLY_PROMPT.trim());
+      $("copyNewsletterPromptBtn").textContent = "Copied";
+      setTimeout(() => $("copyNewsletterPromptBtn").textContent = "Copy weekly prompt", 1200);
+    });
+
+    $("newsletterSignupBtn").addEventListener("click", async () => {
+      const payload = {
+        name: $("nameInput").value.trim(),
+        intent: $("intentInput").value,
+        isbEmail: $("isbEmail").value.trim(),
+        personalEmail: $("personalEmail").value.trim(),
+        groupEmail: CONFIG.newsletterGroupEmail
+      };
+
+      if (!CONFIG.appsScriptWebAppUrl.includes("http")) {
+        $("newsletterStatus").innerHTML = '<span class="warn">Signup not live yet, Apps Script URL missing.</span>';
+        return;
+      }
+
+      try{
+        $("newsletterStatus").textContent = "Subscribing...";
+        const res = await fetch(CONFIG.appsScriptWebAppUrl, {
+          method: "POST",
+          headers: {"Content-Type":"application/json"},
+          body: JSON.stringify(payload)
+        });
+        const data = await res.json();
+        if (data.ok) {
+          $("newsletterStatus").innerHTML = '<span class="ok">Subscribed, welcome to the list.</span>';
+        } else {
+          $("newsletterStatus").innerHTML = '<span class="warn">Could not subscribe, ' + (data.error || "try again") + '</span>';
+        }
+      } catch(e){
+        $("newsletterStatus").innerHTML = '<span class="warn">Network error, try again.</span>';
+      }
+    });
+
+    ["nameInput","intentInput"].forEach(id => {
+      $(id).addEventListener("input", () => { updateOverlay(); setLinks(); });
+      $(id).addEventListener("change", () => { updateOverlay(); setLinks(); });
+    });
+
+    setHeader();
+    updateOverlay();
+    setLinks();
+  </script>
+</body>
+</html>
