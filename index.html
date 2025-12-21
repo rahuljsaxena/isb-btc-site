@@ -376,37 +376,41 @@ Now write Issue #__ for week ending __ using the sources below:
       setTimeout(() => $("copyNewsletterPromptBtn").textContent = "Copy weekly prompt", 1200);
     });
 
-    $("newsletterSignupBtn").addEventListener("click", async () => {
-      const payload = {
-        name: $("nameInput").value.trim(),
-        intent: $("intentInput").value,
-        isbEmail: $("isbEmail").value.trim(),
-        personalEmail: $("personalEmail").value.trim(),
-        groupEmail: CONFIG.newsletterGroupEmail
-      };
+ $("newsletterSignupBtn").addEventListener("click", async () => {
+  const name = $("nameInput").value.trim();
+  const intent = $("intentInput").value;
+  const isbEmail = $("isbEmail").value.trim();
+  const personalEmail = $("personalEmail").value.trim();
 
-      if (!CONFIG.appsScriptWebAppUrl.includes("http")) {
-        $("newsletterStatus").innerHTML = '<span class="warn">Signup not live yet, Apps Script URL missing.</span>';
-        return;
-      }
+  if (!CONFIG.appsScriptWebAppUrl.includes("http")) {
+    $("newsletterStatus").innerHTML = '<span class="warn">Signup not live yet, Apps Script URL missing.</span>';
+    return;
+  }
 
-      try{
-        $("newsletterStatus").textContent = "Subscribing...";
-        const res = await fetch(CONFIG.appsScriptWebAppUrl, {
-          method: "POST",
-          headers: {"Content-Type":"application/json"},
-          body: JSON.stringify(payload)
-        });
-        const data = await res.json();
-        if (data.ok) {
-          $("newsletterStatus").innerHTML = '<span class="ok">Subscribed, welcome to the list.</span>';
-        } else {
-          $("newsletterStatus").innerHTML = '<span class="warn">Could not subscribe, ' + (data.error || "try again") + '</span>';
-        }
-      } catch(e){
-        $("newsletterStatus").innerHTML = '<span class="warn">Network error, try again.</span>';
-      }
-    });
+  const qs = new URLSearchParams({
+    name,
+    intent,
+    isbEmail,
+    personalEmail,
+    groupEmail: CONFIG.newsletterGroupEmail
+  }).toString();
+
+  try {
+    $("newsletterStatus").textContent = "Subscribing...";
+    const url = CONFIG.appsScriptWebAppUrl + "?" + qs;
+    const res = await fetch(url, { method: "GET" });
+    const data = await res.json();
+
+    if (data.ok) {
+      $("newsletterStatus").innerHTML = '<span class="ok">Subscribed, welcome to the list.</span>';
+    } else {
+      $("newsletterStatus").innerHTML = '<span class="warn">Could not subscribe, ' + (data.error || "try again") + '</span>';
+    }
+  } catch (e) {
+    $("newsletterStatus").innerHTML = '<span class="warn">Network error, try again.</span>';
+  }
+});
+
 
     ["nameInput","intentInput"].forEach(id => {
       $(id).addEventListener("input", () => { updateOverlay(); setLinks(); });
