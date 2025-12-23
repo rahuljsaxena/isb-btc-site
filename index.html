@@ -106,7 +106,26 @@
     .ok{color:rgba(130,255,190,0.9)}
     .warn{color:rgba(255,210,130,0.95)}
 
-    .videoWrap{position:relative;border-bottom:1px solid var(--line);background:rgba(0,0,0,0.25)}
+.videoWrap{
+  position:relative;
+  border-bottom:1px solid var(--line);
+  background:#000;
+}
+
+.videoWrap iframe{
+  width:100%;
+  height:420px;
+  border:0;
+  display:block;
+  background:#000;
+}
+@media (max-width: 920px){
+  .videoWrap iframe{height:520px;}
+}
+@media (max-width: 520px){
+  .videoWrap iframe{height:560px;}
+}
+
     .videoOverlay{
       position:absolute;left:14px;right:14px;top:14px;
       padding:12px 12px;border-radius:16px;
@@ -131,9 +150,39 @@
     .listItem h4{margin:0 0 6px 0;font-size:14px}
     .listItem p{margin:0;color:var(--muted);font-size:13px;line-height:1.5}
     .listItem a{color:var(--text)}
-    .pollOpt{display:flex;gap:10px;align-items:flex-start;padding:12px 0;border-top:1px solid var(--line)}
-    .pollOpt:first-child{border-top:0}
-    .pollOpt label{cursor:pointer}
+.pollOpt{
+  display:grid;
+  grid-template-columns: 22px 1fr;
+  gap:14px;
+  align-items:flex-start;
+  padding:14px 18px;
+  border-top:1px solid var(--line);
+}
+.pollOpt:first-child{border-top:0}
+
+.pollOpt input[type="radio"]{
+  margin-top:6px;
+  transform: scale(1.05);
+}
+
+.pollOpt label{
+  cursor:pointer;
+  display:block;
+}
+
+.pollTitle{
+  font-weight:700;
+  font-size:13px;
+  letter-spacing:0.2px;
+  margin-bottom:6px;
+}
+
+.pollDesc{
+  color:rgba(255,255,255,0.72);
+  font-size:13px;
+  line-height:1.55;
+}
+
   </style>
 </head>
 
@@ -397,13 +446,14 @@
       ACTIVITIES.forEach((a, idx) => {
         const row = document.createElement("div");
         row.className = "pollOpt";
-        row.innerHTML = `
-          <input type="radio" name="poll" id="opt-${idx}" value="${encodeURIComponent(a)}">
-          <label for="opt-${idx}">
-            <div style="font-weight:600">${idx + 1}</div>
-            <div style="color:rgba(255,255,255,0.72);font-size:13px;line-height:1.5">${a}</div>
-          </label>
-        `;
+row.innerHTML = `
+  <input type="radio" name="poll" id="opt-${idx}" value="${encodeURIComponent(a)}">
+  <label for="opt-${idx}">
+    <div class="pollTitle">Option ${idx + 1}</div>
+    <div class="pollDesc">${a}</div>
+  </label>
+`;
+
         box.appendChild(row);
       });
       $("pollStatus").textContent = "";
