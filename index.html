@@ -9,7 +9,6 @@
     :root{
       --bg:#070A12;
       --panel:rgba(255,255,255,0.06);
-      --panel2:rgba(255,255,255,0.09);
       --text:rgba(255,255,255,0.92);
       --muted:rgba(255,255,255,0.72);
       --faint:rgba(255,255,255,0.55);
@@ -106,28 +105,11 @@
     .ok{color:rgba(130,255,190,0.9)}
     .warn{color:rgba(255,210,130,0.95)}
 
-.videoWrap{
-  position:relative;
-  border-bottom:1px solid var(--line);
-  background:#000;
-  padding:0;
-}
-
-.videoWrap iframe{
-  width:100%;
-  height:420px;
-  border:0;
-  display:block;
-  background:#000;
-}
-
-@media (max-width: 920px){
-  .videoWrap iframe{height:520px;}
-}
-@media (max-width: 520px){
-  .videoWrap iframe{height:560px;}
-}
-
+    .videoWrap{
+      position:relative;
+      border-bottom:1px solid var(--line);
+      background:#000;
+    }
     .videoOverlay{
       position:absolute;left:14px;right:14px;top:14px;
       padding:12px 12px;border-radius:16px;
@@ -146,45 +128,136 @@
       color:var(--muted);
       font-size:12px;white-space:nowrap;
     }
-    iframe{width:100%;height:420px;border:0}
+    .videoWrap iframe{
+      width:100%;
+      height:420px;
+      border:0;
+      display:block;
+      background:#000;
+    }
+    @media (max-width: 920px){ .videoWrap iframe{height:520px;} }
+    @media (max-width: 520px){ .videoWrap iframe{height:560px;} }
 
     .listItem{padding:14px 18px;border-top:1px solid var(--line)}
     .listItem h4{margin:0 0 6px 0;font-size:14px}
     .listItem p{margin:0;color:var(--muted);font-size:13px;line-height:1.5}
-    .listItem a{color:var(--text)}
-.pollOpt{
-  display:grid;
-  grid-template-columns: 22px 1fr;
-  gap:14px;
-  align-items:flex-start;
-  padding:14px 18px;
-  border-top:1px solid var(--line);
-}
-.pollOpt:first-child{border-top:0}
 
-.pollOpt input[type="radio"]{
-  margin-top:6px;
-  transform: scale(1.05);
-}
+    /* Poll alignment */
+    .pollOpt{
+      display:grid;
+      grid-template-columns: 22px 1fr;
+      gap:14px;
+      align-items:flex-start;
+      padding:14px 18px;
+      border-top:1px solid var(--line);
+    }
+    .pollOpt:first-child{border-top:0}
+    .pollOpt input[type="radio"]{
+      margin-top:6px;
+      transform: scale(1.05);
+    }
+    .pollOpt label{
+      cursor:pointer;
+      display:block;
+    }
+    .pollTitle{
+      font-weight:700;
+      font-size:13px;
+      letter-spacing:0.2px;
+      margin-bottom:6px;
+    }
+    .pollDesc{
+      color:rgba(255,255,255,0.72);
+      font-size:13px;
+      line-height:1.55;
+    }
 
-.pollOpt label{
-  cursor:pointer;
-  display:block;
-}
+    /* Newsletter archive */
+    .issuesGrid{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:14px;
+    }
+    @media (max-width: 920px){
+      .issuesGrid{grid-template-columns: repeat(2, 1fr);}
+    }
+    @media (max-width: 520px){
+      .issuesGrid{grid-template-columns: 1fr;}
+    }
 
-.pollTitle{
-  font-weight:700;
-  font-size:13px;
-  letter-spacing:0.2px;
-  margin-bottom:6px;
-}
+    .issueCard{
+      border:1px solid var(--line);
+      border-radius:16px;
+      background:linear-gradient(180deg, var(--panel), rgba(255,255,255,0.03));
+      padding:14px 14px 12px;
+      cursor:pointer;
+      transition: transform 140ms ease, background 180ms ease;
+      min-height:122px;
+    }
+    .issueCard:hover{
+      transform: translateY(-1px);
+      background:linear-gradient(180deg, rgba(255,255,255,0.10), rgba(255,255,255,0.03));
+    }
+    .issueCard .date{
+      font-size:12px;
+      color:var(--faint);
+      margin-bottom:8px;
+    }
+    .issueCard .t{
+      font-weight:800;
+      font-size:14px;
+      line-height:1.3;
+      margin-bottom:8px;
+    }
+    .issueCard .h{
+      color:var(--muted);
+      font-size:12px;
+      line-height:1.45;
+    }
 
-.pollDesc{
-  color:rgba(255,255,255,0.72);
-  font-size:13px;
-  line-height:1.55;
-}
+    .pager{
+      display:flex;
+      gap:8px;
+      justify-content:center;
+      padding:18px 0 8px;
+      flex-wrap:wrap;
+    }
+    .pageBtn{
+      border:1px solid var(--line);
+      background:rgba(255,255,255,0.03);
+      color:var(--muted);
+      padding:10px 12px;
+      border-radius:12px;
+      cursor:pointer;
+      font-size:13px;
+    }
+    .pageBtn.active{
+      background:rgba(255,255,255,0.10);
+      color:var(--text);
+    }
 
+    .issueItem{
+      padding:14px 0;
+      border-top:1px solid var(--line);
+    }
+    .issueItem:first-child{border-top:0}
+    .issueItem .itTitle{
+      font-weight:800;
+      margin:0 0 6px 0;
+      font-size:14px;
+    }
+    .issueItem .itMeta{
+      color:var(--faint);
+      font-size:12px;
+      margin:0 0 8px 0;
+    }
+    .issueItem .itSum{
+      color:var(--muted);
+      font-size:13px;
+      line-height:1.55;
+      margin:0 0 10px 0;
+    }
+    a{color:var(--text)}
   </style>
 </head>
 
@@ -213,17 +286,17 @@
           <div class="videoOverlay">
             <div class="left">
               <h3 id="overlayTitle">Welcome</h3>
-              <p id="overlaySub">Watch the 20 second hello, then join the WhatsApp group.</p>
+              <p id="overlaySub">Watch the hello, then join the WhatsApp group.</p>
             </div>
             <div class="badge" id="batchBadge">PGPpro Delhi Co’26</div>
           </div>
-<iframe id="heygenFrame" title="Welcome video" src="" allow="autoplay; fullscreen; picture-in-picture"></iframe>
+          <iframe id="heygenFrame" title="Welcome video" src="" allow="autoplay; fullscreen; picture-in-picture"></iframe>
         </div>
 
         <div class="pad">
           <h2 class="headline">A futuristic club for people who like building smart stuff.</h2>
           <p class="sub">
-            Join the WhatsApp group, send a 1 line intro, and get a weekly mini build challenge.
+            Join the WhatsApp group, send a 1 line intro, and get BTC Dispatch weekly.
           </p>
 
           <div class="grid2">
@@ -252,7 +325,7 @@
             <div class="card"><div class="pad">
               <h3 style="margin:0 0 8px;">Subscribe to BTC Dispatch</h3>
               <p class="sub" style="margin:0 0 14px;">
-                Add your ISB email, optional personal email. You will receive a weekly curated digest.
+                Add your ISB email, optional personal email.
               </p>
 
               <div class="small">ISB email</div>
@@ -279,14 +352,27 @@
         <div class="pad">
           <h2 style="margin:0 0 8px;">BTC Dispatch</h2>
           <p class="sub" style="margin:0 0 14px;">
-            This week’s sharpest moves in AI and business tech, plus a mini build idea.
+            Weekly issues. Click a card to open the full summary.
           </p>
           <div class="btnrow">
-            <button class="btn" id="refreshNewsletterBtn" type="button">Refresh this week</button>
+            <button class="btn" id="issuesRefreshBtn" type="button">Refresh</button>
           </div>
-          <div class="small" id="newsletterPageStatus">Loading…</div>
+          <div class="small" id="issuesStatus"></div>
         </div>
-        <div id="newsletterList"></div>
+
+        <div class="pad" id="issuesView">
+          <div class="issuesGrid" id="issuesGrid"></div>
+          <div class="pager" id="issuesPager"></div>
+        </div>
+
+        <div class="pad" id="issueDetailView" style="display:none;">
+          <div class="btnrow">
+            <button class="btn secondary" id="backToIssuesBtn" type="button">Back</button>
+          </div>
+          <h3 id="issueTitle" style="margin:10px 0 6px 0;"></h3>
+          <div class="small" id="issueMeta" style="margin-bottom:14px;"></div>
+          <div id="issueItems"></div>
+        </div>
       </div>
     </div>
 
@@ -318,12 +404,12 @@
           <h2 style="margin:0 0 8px;">What this club is about</h2>
           <p class="sub">
             Business Technology Club exists to make modern tech feel usable, fast, and real.
-            We do not worship tools. We care about outcomes, craft, and the habit of shipping.
+            We care about outcomes, craft, and the habit of shipping.
           </p>
           <p class="sub">
-            The ethos is simple: build small, learn in public, help others move faster.
-            Every member should leave with a stronger personal tech stack, better judgment on what to use when,
-            and at least one tangible artifact per term.
+            The ethos: build small, learn in public, help others move faster.
+            Leave each term with a stronger personal tech stack, better judgment on what to use when,
+            and at least one tangible artifact.
           </p>
           <p class="sub">
             If you are curious, join. If you want to build, you are already one of us.
@@ -358,18 +444,27 @@
     const $ = (id) => document.getElementById(id);
     const encode = (s) => encodeURIComponent(s);
 
+    let issuesState = { page: 1, totalPages: 1 };
+
     function buildIntroText(name, intent){
       const safeName = (name || "I’m").trim();
       const safeIntent = (intent || "exploring").trim();
       return `Hi! ${safeName} wants to join ${CONFIG.clubName}. My focus: ${safeIntent}. One thing I want to build this term: _____.`;
     }
 
+    function apiUrl(params){
+      const qs = new URLSearchParams(params).toString();
+      return CONFIG.appsScriptWebAppUrl + "?" + qs;
+    }
+
     function setHeader(){
       $("clubName").textContent = CONFIG.clubName;
       $("clubMeta").textContent = CONFIG.tagline;
       $("batchBadge").textContent = CONFIG.batchLabel;
+
       $("heygenFrame").src = CONFIG.heygenEmbedUrl;
       $("joinBtn").href = CONFIG.whatsappGroupInviteLink;
+
       setLinksAndOverlay();
     }
 
@@ -384,11 +479,6 @@
       $("chatBtn").href = `https://wa.me/${CONFIG.whatsappAdminNumberIntlDigitsOnly}?text=${encode(msg)}`;
     }
 
-    function apiUrl(params){
-      const qs = new URLSearchParams(params).toString();
-      return CONFIG.appsScriptWebAppUrl + "?" + qs;
-    }
-
     async function subscribe(){
       const name = $("nameInput").value.trim();
       const intent = $("intentInput").value;
@@ -397,49 +487,21 @@
 
       $("newsletterStatus").textContent = "Subscribing…";
 
-      const url = apiUrl({
+      const res = await fetch(apiUrl({
         action: "subscribe",
         name,
         intent,
         isbEmail,
         personalEmail,
         groupEmail: CONFIG.newsletterGroupEmail
-      });
+      }));
 
-      const res = await fetch(url);
       const data = await res.json();
-
       if (data.ok) {
         $("newsletterStatus").innerHTML = '<span class="ok">Subscribed. You will receive BTC Dispatch weekly.</span>';
       } else {
         $("newsletterStatus").innerHTML = '<span class="warn">Could not subscribe, ' + (data.error || "try again") + '</span>';
       }
-    }
-
-    async function loadNewsletterPage(){
-      $("newsletterPageStatus").textContent = "Loading…";
-      const res = await fetch(apiUrl({ action: "newsletter" }));
-      const data = await res.json();
-
-      if (!data.ok) {
-        $("newsletterPageStatus").innerHTML = '<span class="warn">Could not load newsletter.</span>';
-        return;
-      }
-
-      $("newsletterPageStatus").textContent = data.hook || "";
-      const list = $("newsletterList");
-      list.innerHTML = "";
-
-      (data.items || []).forEach((it) => {
-        const div = document.createElement("div");
-        div.className = "listItem";
-        div.innerHTML = `
-          <h4>${it.title || ""}</h4>
-          <p>Source: ${it.source || ""}</p>
-          <p><a href="${it.link}" target="_blank" rel="noopener">Open</a></p>
-        `;
-        list.appendChild(div);
-      });
     }
 
     function renderPoll(){
@@ -448,14 +510,13 @@
       ACTIVITIES.forEach((a, idx) => {
         const row = document.createElement("div");
         row.className = "pollOpt";
-row.innerHTML = `
-  <input type="radio" name="poll" id="opt-${idx}" value="${encodeURIComponent(a)}">
-  <label for="opt-${idx}">
-    <div class="pollTitle">Option ${idx + 1}</div>
-    <div class="pollDesc">${a}</div>
-  </label>
-`;
-
+        row.innerHTML = `
+          <input type="radio" name="poll" id="opt-${idx}" value="${encodeURIComponent(a)}">
+          <label for="opt-${idx}">
+            <div class="pollTitle">Option ${idx + 1}</div>
+            <div class="pollDesc">${a}</div>
+          </label>
+        `;
         box.appendChild(row);
       });
       $("pollStatus").textContent = "";
@@ -468,7 +529,6 @@ row.innerHTML = `
         $("pollStatus").innerHTML = '<span class="warn">Pick one option first.</span>';
         return;
       }
-
       $("pollStatus").textContent = "Submitting…";
       const choice = decodeURIComponent(selected.value);
 
@@ -499,6 +559,105 @@ row.innerHTML = `
       $("pollStatus").innerHTML = '<span class="ok">Top votes</span><br>' + (lines || "No votes yet");
     }
 
+    async function loadIssues(page){
+      $("issuesStatus").textContent = "Loading…";
+      const res = await fetch(apiUrl({ action: "issues_list", page: String(page) }));
+      const data = await res.json();
+
+      if (!data.ok) {
+        $("issuesStatus").innerHTML = '<span class="warn">Could not load issues.</span>';
+        return;
+      }
+
+      issuesState.page = data.page;
+      issuesState.totalPages = data.totalPages;
+
+      $("issuesStatus").textContent = data.total
+        ? `Showing page ${data.page} of ${data.totalPages}`
+        : "No issues yet. Run createIssueNow once, then set the weekly trigger.";
+
+      renderIssuesGrid(data.items || []);
+      renderPager(data.page, data.totalPages);
+
+      $("issuesView").style.display = "block";
+      $("issueDetailView").style.display = "none";
+    }
+
+    function renderIssuesGrid(items){
+      const grid = $("issuesGrid");
+      grid.innerHTML = "";
+
+      if (!items.length) {
+        grid.innerHTML = `
+          <div class="listItem">
+            <h4>No issues yet</h4>
+            <p>Run createIssueNow once in Apps Script to create the first issue.</p>
+          </div>
+        `;
+        return;
+      }
+
+      items.forEach(it => {
+        const div = document.createElement("div");
+        div.className = "issueCard";
+        div.innerHTML = `
+          <div class="date">Week ending ${it.weekEnding}</div>
+          <div class="t">${it.title}</div>
+          <div class="h">${it.hook || ""}</div>
+        `;
+        div.addEventListener("click", () => openIssue(it.issueId));
+        grid.appendChild(div);
+      });
+    }
+
+    function renderPager(page, totalPages){
+      const p = $("issuesPager");
+      p.innerHTML = "";
+      if (totalPages <= 1) return;
+
+      for (let i = 1; i <= totalPages; i++) {
+        const b = document.createElement("button");
+        b.className = "pageBtn" + (i === page ? " active" : "");
+        b.type = "button";
+        b.textContent = String(i);
+        b.addEventListener("click", () => loadIssues(i));
+        p.appendChild(b);
+      }
+    }
+
+    async function openIssue(issueId){
+      $("issuesStatus").textContent = "Opening issue…";
+      const res = await fetch(apiUrl({ action: "issue", id: issueId }));
+      const data = await res.json();
+
+      if (!data.ok) {
+        $("issuesStatus").innerHTML = '<span class="warn">Could not open issue.</span>';
+        return;
+      }
+
+      $("issueTitle").textContent = data.issue.title;
+      $("issueMeta").textContent = `Week ending ${data.issue.weekEnding}, ${data.issue.itemCount} items`;
+
+      const box = $("issueItems");
+      box.innerHTML = "";
+
+      (data.items || []).forEach((it, idx) => {
+        const div = document.createElement("div");
+        div.className = "issueItem";
+        div.innerHTML = `
+          <div class="itTitle">${idx + 1}. ${it.title || ""}</div>
+          <div class="itMeta">Source: ${it.source || ""}</div>
+          ${it.summary ? `<div class="itSum">${it.summary}</div>` : ``}
+          <div><a href="${it.link}" target="_blank" rel="noopener">Open</a></div>
+        `;
+        box.appendChild(div);
+      });
+
+      $("issuesView").style.display = "none";
+      $("issueDetailView").style.display = "block";
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
     function wireTabs(){
       document.querySelectorAll(".tab").forEach(t => {
         t.addEventListener("click", async () => {
@@ -509,7 +668,7 @@ row.innerHTML = `
           document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
           $("page-" + page).classList.add("active");
 
-          if (page === "newsletter") await loadNewsletterPage();
+          if (page === "newsletter") await loadIssues(1);
           if (page === "activities") renderPoll();
 
           window.scrollTo({ top: 0, behavior: "smooth" });
@@ -527,12 +686,10 @@ row.innerHTML = `
     const WEEKLY_PROMPT = `
 You are the editor for ISB Business Technology Club’s weekly newsletter.
 Audience: busy MBA students. Tone: classy, futuristic, crisp. No fluff.
-Input I will provide: links plus short notes.
 
 Rules:
 - Do not copy long text from sources.
-- Summarize in your own words, add my commentary, include links back.
-- Output must be skimmable and actionable.
+- Summarize in your own words, add short commentary, include links.
 
 Format:
 1) Title + 1 line hook
@@ -553,9 +710,11 @@ Write Issue #__ for week ending __ using sources below:
     });
 
     $("newsletterSignupBtn").addEventListener("click", () => subscribe());
-    $("refreshNewsletterBtn").addEventListener("click", () => loadNewsletterPage());
     $("voteBtn").addEventListener("click", () => submitVote());
     $("resultsBtn").addEventListener("click", () => viewResults());
+
+    $("issuesRefreshBtn").addEventListener("click", () => loadIssues(issuesState.page));
+    $("backToIssuesBtn").addEventListener("click", () => loadIssues(issuesState.page));
 
     ["nameInput","intentInput"].forEach(id => {
       $(id).addEventListener("input", () => setLinksAndOverlay());
