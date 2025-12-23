@@ -110,32 +110,22 @@
   position:relative;
   border-bottom:1px solid var(--line);
   background:#000;
-  padding:18px 18px 22px;
+  padding:0;
 }
 
-/* Portrait frame to match your HeyGen video */
-.videoFrame{
+.videoWrap iframe{
   width:100%;
-  max-width:420px;
-  margin:0 auto;
-  aspect-ratio: 9 / 16;
-  background:#000;
-  border-radius:14px;
-  overflow:hidden;
-  box-shadow: 0 0 0 1px rgba(255,255,255,0.10);
-}
-
-.videoFrame iframe{
-  width:100%;
-  height:100%;
+  height:420px;
   border:0;
   display:block;
   background:#000;
 }
 
+@media (max-width: 920px){
+  .videoWrap iframe{height:520px;}
+}
 @media (max-width: 520px){
-  .videoWrap{padding:14px 12px 18px;}
-  .videoFrame{max-width:100%;}
+  .videoWrap iframe{height:560px;}
 }
 
     .videoOverlay{
@@ -227,9 +217,7 @@
             </div>
             <div class="badge" id="batchBadge">PGPpro Delhi Co’26</div>
           </div>
-         <div class="videoFrame">
-  <iframe id="heygenFrame" title="Welcome video" src="" allow="autoplay; fullscreen; picture-in-picture"></iframe>
-</div>
+<iframe id="heygenFrame" title="Welcome video" src="" allow="autoplay; fullscreen; picture-in-picture"></iframe>
         </div>
 
         <div class="pad">
